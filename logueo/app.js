@@ -1,59 +1,69 @@
-// const usuario = {
-//   nombre: "pmarino",
-//   password: "12345678",
-// };
-// localStorage.setItem("logueo", JSON.stringify(usuario));
+//  const usuario = {
+//      nombre: "pmarino",
+//      password: "12345678",
+//  };
+//  localStorage.setItem("logueo", JSON.stringify(usuario));
+//  localStorage.setItem('autenticado', 'false')
 
 let botoncito = document.getElementById("botones");
 
-let logueo = false;
+//let logueo = false;
+let logueo = localStorage.getItem('autenticado')
 
 const loguear = () => {
-  if (logueo) {
-    botoncito.innerHTML = botonCerrar;
-  } else {
-    botoncito.innerHTML = botonInicio;
-  }
+    if (logueo === 'true') {
+        botoncito.innerHTML = botonCerrar;
+    } else {
+        botoncito.innerHTML = botonInicio;
 
-  //   logueo = !logueo;
-  //   if (logueo) {
-  //     botoncito.innerText = "Cerrar Sesión";
-  //     botoncito.className = "btn btn-secondary";
-  //   } else {
-  //     botoncito.innerText = "Iniciar Sesión";
-  //     botoncito.className = "btn btn-outline-success";
-  //   }
+    }
+
+    //   logueo = !logueo;
+    //   if (logueo) {
+    //     botoncito.innerText = "Cerrar Sesión";
+    //     botoncito.className = "btn btn-secondary";
+    //   } else {
+    //     botoncito.innerText = "Iniciar Sesión";
+    //     botoncito.className = "btn btn-outline-success";
+    //   }
 };
 
 const logueoChange = () => {
-  let usuario = document.getElementById("user").value;
-  let password = document.getElementById("password").value;
+    let usuario = document.getElementById("user").value;
+    let password = document.getElementById("password").value;
 
-  let dato = JSON.parse(localStorage.getItem("logueo"));
+    let dato = JSON.parse(localStorage.getItem("logueo"));
+    if (usuario === "" || password === "") {
 
-  if (dato.nombre === usuario) {
-    if (dato.password === password) {
-      logueo = true;
-      loguear();
-    } else {
-      alert("Usuario o contraseña incorrectos");
+        return alert('DEbe ingresar valores en los campos')
     }
-  } else {
-    alert("Usuario o contraseña incorrectos");
-  }
+    if (dato.nombre === usuario) {
+        if (dato.password === password) {
+            logueo = true;
+            loguear();
+            localStorage.setItem('autenticado', 'true')
+            window.location = 'admin.html'
+        } else {
+            alert("Usuario o contraseña incorrectos");
+        }
+    } else {
+        alert("Usuario o contraseña incorrectos");
+    }
 
-  document.getElementById("user").value = "";
-  document.getElementById("password").value = "";
-  //   logueo = !logueo;
-  //   if (!logueo) {
-  //     alert("Se ha deslogueado con éxito");
-  //   }
-  //   loguear();
+    document.getElementById("user").value = "";
+    document.getElementById("password").value = "";
+    //   logueo = !logueo;
+    //   if (!logueo) {
+    //     alert("Se ha deslogueado con éxito");
+    //   }
+    //   loguear();
 };
 const desloguear = () => {
-  logueo = false;
-  alert("Has sido deslogueado");
-  loguear();
+    logueo = false;
+    alert("Has sido deslogueado");
+    localStorage.setItem('autenticado', 'false')
+    loguear();
+    window.location = "index.html"
 };
 let botonInicio = `<button
               id="botonLogueo"
