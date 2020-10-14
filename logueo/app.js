@@ -11,6 +11,8 @@ let botoncito = document.getElementById("botones");
 //let logueo = false;
 let logueo = localStorage.getItem('autenticado')
 
+
+
 const validacion = (logueo) => {
     let pagina = location.pathname
     if (pagina === "/admin.html") {
