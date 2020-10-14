@@ -5,10 +5,21 @@
 //  localStorage.setItem("logueo", JSON.stringify(usuario));
 //  localStorage.setItem('autenticado', 'false')
 
+
 let botoncito = document.getElementById("botones");
 
 //let logueo = false;
 let logueo = localStorage.getItem('autenticado')
+
+const validacion = (logueo) => {
+    let pagina = location.pathname
+    if (pagina === "/admin.html") {
+        if (logueo === "false") {
+            $('#exampleModalCenter').modal('show')
+            location = "index.html"
+        }
+    }
+}
 
 const loguear = () => {
     if (logueo === 'true') {
@@ -18,14 +29,7 @@ const loguear = () => {
 
     }
 
-    //   logueo = !logueo;
-    //   if (logueo) {
-    //     botoncito.innerText = "Cerrar Sesión";
-    //     botoncito.className = "btn btn-secondary";
-    //   } else {
-    //     botoncito.innerText = "Iniciar Sesión";
-    //     botoncito.className = "btn btn-outline-success";
-    //   }
+
 };
 
 const logueoChange = () => {
@@ -83,3 +87,4 @@ let botonCerrar = `<button
               Cerrar sesión
             </button>`;
 loguear();
+validacion(logueo)
